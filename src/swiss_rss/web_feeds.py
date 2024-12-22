@@ -23,6 +23,7 @@ class FeedItem:
         id: Optional ID (defaults to guid value)
         author: Optional author name
     """
+
     title: str
     link: str
     guid: str  # Required field for database
@@ -42,6 +43,7 @@ class FeedInfo:
         items: List of FeedItem objects containing the feed entries
         description: Optional description of the feed
     """
+
     title: str
     link: str
     items: List[FeedItem]
@@ -50,13 +52,13 @@ class FeedInfo:
 
 def parse_feed(feed_content: str) -> FeedInfo:
     """Parse RSS/Atom feed content into a FeedInfo object.
-    
+
     Args:
         feed_content: The XML content of the RSS/Atom feed
-        
+
     Returns:
         FeedInfo object containing the parsed feed data
-        
+
     Raises:
         ValueError: If the feed format is unsupported or invalid
     """
@@ -73,11 +75,14 @@ def parse_feed(feed_content: str) -> FeedInfo:
         raise ValueError(f"Invalid feed XML: {str(e)}")
 
 
-async def discover_feed(url: str, session: Optional[aiohttp.ClientSession] = None) -> Optional[str]:
+async def discover_feed(
+    url: str, session: Optional[aiohttp.ClientSession] = None
+) -> Optional[str]:
     """
     Try to find a feed URL from a webpage.
     Returns the feed URL if found, None otherwise.
     """
+
     async def _discover(client_session):
         try:
             async with client_session.get(url) as response:
@@ -141,20 +146,20 @@ async def discover_feed(url: str, session: Optional[aiohttp.ClientSession] = Non
 
     if session:
         return await _discover(session)
-    
+
     async with aiohttp.ClientSession() as new_session:
         return await _discover(new_session)
 
 
 def _parse_rss(root: ET.Element) -> FeedInfo:
     """Parse an RSS feed from an XML Element.
-    
+
     Args:
         root: The root XML Element of the RSS feed
-        
+
     Returns:
         FeedInfo object containing the parsed RSS feed data
-        
+
     Raises:
         ValueError: If required RSS elements are missing
     """
@@ -187,39 +192,52 @@ def _parse_rss(root: ET.Element) -> FeedInfo:
     return info
 
 
-async def parse_feed_from_url(url: str, session: Optional[ClientSession] = None) -> FeedInfo:
+async def parse_feed_from_url(
+    url: str,
+    session: Optional[ClientSession] = None,
+    *,
+    headers: Optional[dict] = None,
+    timeout: Optional[float] = None,
+    **kwargs,
+) -> FeedInfo:
     """Download and parse a feed from a URL.
-    
+
     Args:
         url: The URL of the RSS/Atom feed
         session: Optional aiohttp ClientSession to use for the request
-        
+        headers: Optional headers to send with the request
+        timeout: Optional timeout in seconds
+        **kwargs: Additional arguments to pass to aiohttp.ClientSession.get()
+
     Returns:
         FeedInfo object containing the parsed feed data
-        
+
     Raises:
         aiohttp.ClientError: If the HTTP request fails
         ValueError: If the feed format is unsupported or invalid
     """
+
     async def _parse(client_session):
-        async with client_session.get(url) as response:
+        async with client_session.get(
+            url, headers=headers, timeout=timeout, **kwargs
+        ) as response:
             response.raise_for_status()
             content = await response.text()
             return parse_feed(content)
 
     if session:
         return await _parse(session)
-    
+
     async with aiohttp.ClientSession() as new_session:
         return await _parse(new_session)
 
 
 def _parse_atom(root: ET.Element) -> FeedInfo:
     """Parse an Atom feed from an XML Element.
-    
+
     Args:
         root: The root XML Element of the Atom feed
-        
+
     Returns:
         FeedInfo object containing the parsed Atom feed data
     """

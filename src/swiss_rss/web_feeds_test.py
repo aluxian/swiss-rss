@@ -345,14 +345,32 @@ def test_parse_atom_id_variations():
 @pytest.mark.asyncio
 async def test_parse_feed_from_url():
     with aioresponses() as m:
-        m.get('http://example.com/feed.xml', status=200, body=rss_data)
-        
-        feed_info = await parse_feed_from_url('http://example.com/feed.xml')
+        m.get("http://example.com/feed.xml", status=200, body=rss_data)
+
+        feed_info = await parse_feed_from_url("http://example.com/feed.xml")
         assert isinstance(feed_info, FeedInfo)
         assert feed_info.title == "Example RSS Feed"
         assert feed_info.link == "https://example.com"
         assert len(feed_info.items) == 2
         assert feed_info.items[0].title == "RSS Item 1"
+
+
+@pytest.mark.asyncio
+async def test_parse_feed_from_url_with_params():
+    headers = {"User-Agent": "TestBot/1.0"}
+    timeout = 30.0
+
+    with aioresponses() as m:
+        m.get("http://example.com/feed.xml", status=200, body=rss_data, headers=headers)
+
+        feed_info = await parse_feed_from_url(
+            "http://example.com/feed.xml",
+            headers=headers,
+            timeout=timeout,
+            allow_redirects=True,
+        )
+        assert isinstance(feed_info, FeedInfo)
+        assert feed_info.title == "Example RSS Feed"
 
 
 def test_parse_rss_without_guid():
