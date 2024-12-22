@@ -7,7 +7,7 @@ packages = ["src/swiss_rss"]
 
 [project]
 name = "swiss-rss"
-version = "0.1.0"
+version = "0.1.1"
 description = "RSS web feeds swiss army knife"
 readme = "README.md"
 requires-python = ">=3.12"
@@ -30,7 +30,7 @@ dependencies = [
     "cairosvg>=2.7.1",
     "loguru>=0.7.3",
     "Pillow>=10.2.0",
-    "requests>=2.32.3"
+    "requests>=2.32.3",
 ]
 
 [project.urls]
@@ -46,7 +46,7 @@ dev-dependencies = [
     "pytest-mock>=3.12.0",
     "requests-mock>=1.11.0",
     "aioresponses>=0.7.6",
-    "pytest-asyncio>=0.23.5"
+    "pytest-asyncio>=0.23.5",
 ]
 
 [tool.pytest.ini_options]
