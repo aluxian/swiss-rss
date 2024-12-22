@@ -7,7 +7,7 @@ packages = ["src/swiss_rss"]
 
 [project]
 name = "swiss-rss"
-version = "0.1.1"
+version = "0.1.2"
 description = "RSS web feeds swiss army knife"
 readme = "README.md"
 requires-python = ">=3.12"
