@@ -1,0 +1,24 @@
+# Python
+.venv
+__pycache__
+.pytest_cache
+.ruff_cache
+*.egg-info/
+build/
+dist/
+
+# macOS
+.DS_Store
+
+# aider
+.aider.chat*
+.aider.input*
+.aider.tags*
+
+# terraform
+.terraform
+*tfstate.lock*
+*.tfstate.*backup
+
+# secrets
+.env

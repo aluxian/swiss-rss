@@ -1,0 +1,25 @@
+file:
+  - src/swiss_rss/__init__.py
+  - src/swiss_rss/swiss_rss_test.py
+  - src/swiss_rss/swiss_rss.py
+  - pyproject.toml
+  - README.md
+check-update: false
+cache-prompts: true
+cache-keepalive-pings: 3
+dark-mode: true
+gitignore: false
+show-diffs: false
+auto-commits: true
+dirty-commits: true
+attribute-author: true
+attribute-committer: true
+attribute-commit-message-author: false
+lint: false
+lint-cmd:
+  - "python: uv run ruff check --fix"
+auto-lint: true
+test-cmd: "uv run pytest"
+auto-test: false
+test: false
+watch-files: true

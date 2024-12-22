@@ -1,0 +1,36 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/swiss_rss"]
+
+[project]
+name = "swiss-rss"
+version = "0.1.0"
+description = "RSS web feeds swiss army knife"
+readme = "README.md"
+requires-python = ">=3.12"
+license = "MIT"
+authors = [{ name = "Alexandru Rosianu" }]
+keywords = ["rss", "feed", "parser", "syndication", "atom", "web"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Internet :: WWW/HTTP :: Dynamic Content :: News/Diary",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+dependencies = ["loguru>=0.7.3"]
+
+[project.urls]
+Homepage = "https://github.com/aluxian/swiss-rss"
+Repository = "https://github.com/aluxian/swiss-rss.git"
+Issues = "https://github.com/aluxian/swiss-rss/issues"
+Changelog = "https://github.com/aluxian/swiss-rss/releases"
+
+[tool.uv]
+dev-dependencies = ["pytest>=8.3.3", "ruff>=0.7.2", "pytest-mock>=3.12.0"]
