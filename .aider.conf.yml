@@ -1,7 +1,5 @@
 file:
   - src/swiss_rss/__init__.py
-  - src/swiss_rss/swiss_rss_test.py
-  - src/swiss_rss/swiss_rss.py
   - pyproject.toml
   - README.md
 check-update: false

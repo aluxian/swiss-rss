@@ -24,7 +24,14 @@ classifiers = [
     "Topic :: Internet :: WWW/HTTP :: Dynamic Content :: News/Diary",
     "Topic :: Software Development :: Libraries :: Python Modules",
 ]
-dependencies = ["loguru>=0.7.3"]
+dependencies = [
+    "aiohttp>=3.10.10",
+    "beautifulsoup4>=4.12.3",
+    "cairosvg>=2.7.1",
+    "loguru>=0.7.3",
+    "Pillow>=10.2.0",
+    "requests>=2.32.3"
+]
 
 [project.urls]
 Homepage = "https://github.com/aluxian/swiss-rss"
@@ -33,4 +40,15 @@ Issues = "https://github.com/aluxian/swiss-rss/issues"
 Changelog = "https://github.com/aluxian/swiss-rss/releases"
 
 [tool.uv]
-dev-dependencies = ["pytest>=8.3.3", "ruff>=0.7.2", "pytest-mock>=3.12.0"]
+dev-dependencies = [
+    "pytest>=8.3.3",
+    "ruff>=0.7.2",
+    "pytest-mock>=3.12.0",
+    "requests-mock>=1.11.0",
+    "aioresponses>=0.7.6",
+    "pytest-asyncio>=0.23.5"
+]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
