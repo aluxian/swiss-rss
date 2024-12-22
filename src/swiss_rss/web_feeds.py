@@ -90,7 +90,7 @@ async def discover_feed(
                     return None
 
                 content = await response.text()
-                soup = BeautifulSoup(content, "html.parser")
+                soup = BeautifulSoup(content, "lxml-xml")
 
                 # Look for RSS/Atom feed links
                 feed_links = []
